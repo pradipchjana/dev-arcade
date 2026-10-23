@@ -10,9 +10,12 @@ export function initGameOfLife(root) {
   let timerId = null;
   let speed = 200;
 
+  let cursor = { x: 0, y: 0 };
+
   root.innerHTML = `
     <canvas class="gol-canvas" width="${COLS * CELL_SIZE}" height="${ROWS * CELL_SIZE}"
-      style="width:100%;max-width:${COLS * CELL_SIZE}px;background:#0d1117;border:1px solid var(--color-border);"></canvas>
+      tabindex="0" role="grid" aria-label="Game of Life grid. Arrow keys to move, Space or Enter to toggle a cell."
+      style="width:100%;max-width:${COLS * CELL_SIZE}px;background:#0d1117;border:1px solid var(--color-border);outline-offset:2px;"></canvas>
     <div class="gol-controls" style="display:flex;gap:0.5rem;align-items:center;margin-top:0.5rem;flex-wrap:wrap;">
       <button type="button" class="gol-play">Play</button>
       <button type="button" class="gol-reset">Randomize</button>
@@ -42,6 +45,11 @@ export function initGameOfLife(root) {
           ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE - 1, CELL_SIZE - 1);
         }
       }
+    }
+    if (!running) {
+      ctx.strokeStyle = "#f78166";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(cursor.x * CELL_SIZE + 1, cursor.y * CELL_SIZE + 1, CELL_SIZE - 2, CELL_SIZE - 2);
     }
   }
 
@@ -103,6 +111,27 @@ export function initGameOfLife(root) {
     }
   });
   canvas.addEventListener("click", toggleCell);
+
+  canvas.addEventListener("keydown", (evt) => {
+    if (running) return;
+    const moves = {
+      ArrowUp: [0, -1],
+      ArrowDown: [0, 1],
+      ArrowLeft: [-1, 0],
+      ArrowRight: [1, 0],
+    };
+    if (moves[evt.key]) {
+      evt.preventDefault();
+      const [dx, dy] = moves[evt.key];
+      cursor.x = Math.min(COLS - 1, Math.max(0, cursor.x + dx));
+      cursor.y = Math.min(ROWS - 1, Math.max(0, cursor.y + dy));
+      draw();
+    } else if (evt.key === " " || evt.key === "Enter") {
+      evt.preventDefault();
+      grid[cursor.y][cursor.x] = !grid[cursor.y][cursor.x];
+      draw();
+    }
+  });
 
   status.textContent = "Click Play to start, or click cells to edit first.";
   draw();
