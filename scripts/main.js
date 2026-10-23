@@ -3,8 +3,10 @@
 
 import { initTicTacToe } from "./games/tic-tac-toe.js";
 import { initGameOfLife } from "./games/game-of-life.js";
+import { initFractalLab } from "./playground/fractal-lab.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initTicTacToe(document.getElementById("tic-tac-toe-root"));
   initGameOfLife(document.getElementById("game-of-life-root"));
+  initFractalLab(document.getElementById("fractal-lab-root"));
 });
