@@ -158,11 +158,9 @@ Two separate repositories, inspected separately, no assumption that either auto-
   links — `your.email@example.com` etc. were never filled in with real handles).
 - **No mention of Dev Arcade anywhere yet.**
 
-**Verified Pages URL for Dev Arcade: not yet available.** `https://pradipchjana.github.io/dev-arcade/`
-still returns `404` (checked again just now) — Pages hasn't been enabled on that repo yet (see §3.1
-and §9's open question 2). The README must not link to this URL until it's confirmed live; doing so
-now would ship a broken link, which contradicts this very plan's own findings in §3.2 about the
-cost of unverified links.
+**Status: implemented.** `https://pradipchjana.github.io/dev-arcade/` was verified live (`HTTP 200`,
+correct `<title>`, Problem Solving section present in the deployed HTML) before any link was added.
+The profile README now has a "🕹️ Dev Arcade" section linking to it (commit `fc11c52`).
 
 **Proposed division of responsibility:**
 - **Profile README** = introduction + directory. Short bio (already good, keep as-is), tech stack
@@ -183,10 +181,8 @@ cost of unverified links.
 | `pradipchjana/dev-arcade` | `index.html` | No structural change required — footer and About section already link to `github.com/pradipchjana` and `github.com/pradipchjana/pradipchjana`. If you want a more prominent "back to profile" link, that would be a one-line addition near the header. |
 | `pradipchjana/dev-arcade` | `Plan.md` | This file — mark the coordinated plan as implemented once both sides are done. |
 
-**Sequencing (hard dependency):** Pages must be enabled and the URL verified with `curl` *before*
-the profile README PR is written, otherwise step 2 ships a link I haven't confirmed works — exactly
-the mistake flagged in §3.3 for `simple_weather`. So this phase is blocked on open question 2 below
-until I can verify a `200`.
+**Sequencing was followed:** Pages was enabled, verified with `curl` (`200`), then the profile
+README was updated — in that order — so no unverified link was ever shipped.
 
 ## 10. Open questions
 
