@@ -68,13 +68,18 @@ Checked directly, not guessed:
   layout at specific breakpoints, and real screen-reader behaviour are **not verified** — only
   `node --check` syntax validation and manual code review have been done on the JS, and manual
   reading of the CSS/HTML for obvious issues. Once Pages is live, a real browser pass is needed.
-- `dashboard-nextJs` and `uno` — I have not re-verified these build cleanly or that their READMEs
-  still match reality since the first audit pass (last commit dates: Jun 2026 for both). Still
-  link-only in this plan, so low risk either way.
-- Keyboard operability gap: the Game of Life canvas's click-to-edit (drawing cells before
-  pressing Play) has no keyboard equivalent. The core play/pause/reset/speed controls are all
-  real `<button>`/`<input>` elements and are keyboard-operable; only the optional freehand editing
-  is mouse-only.
+- ~~`dashboard-nextJs` and `uno` — not re-verified~~ **Resolved:** re-checked both repos' file
+  trees for secrets (none found — no `.env` files; `uno/client/node_modules` is committed, which
+  is clutter but not a secret) and confirmed their Dev Arcade card descriptions still match
+  ("Next.js dashboard over the public GitHub REST API", "React + Socket.IO server required").
+  No changes needed to either card.
+- ~~Keyboard operability gap in Game of Life~~ **Resolved:** the canvas is now focusable with a
+  visible cursor; arrow keys move it and Space/Enter toggles a cell (see commit `6ecaa38`).
+- Still open: I cannot render the page in an actual browser from this environment, so console
+  errors, visual layout at specific breakpoints, and real screen-reader behaviour remain
+  **unverified** beyond `curl`-confirmed `200`s on every asset the page loads (checked just now —
+  all of `index.html`'s script/style references resolve live with no 404s) and `node --check`
+  syntax validation. A real browser/screen-reader pass is still recommended when you get a chance.
 
 ## 5. Profile-wide inventory (re-verified, supersedes the equivalent section in the old
    `js-practice/Plan.md`)
