@@ -71,6 +71,18 @@ button:focus-visible {
   background: var(--color-accent);
 }
 
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 footer.site-footer {
   text-align: center;
   padding: var(--space-4) var(--space-3);
